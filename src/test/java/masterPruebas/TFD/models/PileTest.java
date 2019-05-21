@@ -36,7 +36,7 @@ public class PileTest {
 	@Test
 	public void givenAPile_whenAddACardThatDoesNotFitInByCloseUpperNumber_ThenTheResultIsFalse() {
 		Pile pile = new PileBuilder().card(new CardBuilder().number(Number.SEVEN).suit(Suit.PIKES).build()).build();
-		Card card2 = new CardBuilder().number(Number.EIGHT).suit(Suit.HEARTS).build();
+		Card card = new CardBuilder().number(Number.EIGHT).suit(Suit.HEARTS).build();
 		assertFalse(pile.fitsIn(card));		
 	}
 
@@ -100,7 +100,7 @@ public class PileTest {
 	@Test
 	public void givenAnEmptyPile_AddToTop1Card_ThenTheResultIsTheListWithThisCard() {
 		Card card1 = new CardBuilder().number(Number.KING).suit(Suit.PIKES).build();
-		Pile pile = new PileBuilder().empty().build();
+		Pile pile = new PileBuilder().build();
 		
 		List<Card> cardsToAdd = new ArrayList<Card>();
 		cardsToAdd.add(card1);
@@ -110,7 +110,7 @@ public class PileTest {
 	
 	@Test
 	public void givenAnEmptyPile_whenAddToTop0Cards_ThenNoCardsAdded() {
-		Pile pile = new PileBuilder().empty().build();
+		Pile pile = new PileBuilder().build();
 		List<Card> cardList = new ArrayList<Card>();
 		cardList.add(new CardBuilder().number(Number.SEVEN).suit(Suit.PIKES).build());
 		pile.addToTop(new ArrayList<Card>());
