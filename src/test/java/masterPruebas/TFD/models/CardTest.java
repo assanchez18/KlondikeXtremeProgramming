@@ -7,7 +7,7 @@ import org.junit.Test;
 public class CardTest {
 
 	@Test
-	public void givenFaceDownCard_whenFlip_thenCardFaceUp() {
+	public void givenFaceDownCard_whenFlip_thenCardFaceUp() {		
 		Card card = new CardBuilder().build();
 		card.flip();
 		assertTrue(card.isFaceUp());

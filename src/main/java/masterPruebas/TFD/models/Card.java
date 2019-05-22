@@ -34,4 +34,10 @@ public class Card {
 	public Color getColor() {
 		return this.suit.getColor();
 	}
+	
+	@Override
+	public String toString() {
+		return "Color: " +  getSuit() + " -- Number: " + getNumber();
+		
+	}
 }

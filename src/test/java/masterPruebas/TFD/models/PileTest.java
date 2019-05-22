@@ -2,7 +2,6 @@ package masterPruebas.TFD.models;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -47,8 +46,8 @@ public class PileTest {
 		Card card2 = new CardBuilder().number(Number.EIGHT).suit(Suit.HEARTS).build();
 		Pile pile = new PileBuilder().card(card1).card(card2).build();
 		List<Card> cardList = new ArrayList<Card>();
-		cardList.add(card2);
 		cardList.add(card1);
+		cardList.add(card2);
 		assertEquals(cardList, pile.getTop(quantity));		
 	}
 	
@@ -60,8 +59,8 @@ public class PileTest {
 		Card card3 = new CardBuilder().number(Number.NINE).suit(Suit.PIKES).build();
 		Pile pile = new PileBuilder().card(card1).card(card2).card(card3).build();
 		List<Card> cardList = new ArrayList<Card>();
-		cardList.add(card3);
 		cardList.add(card2);
+		cardList.add(card3);
 		assertEquals(cardList, pile.getTop(quantity));		
 	}
 
@@ -73,12 +72,12 @@ public class PileTest {
 	}
 	
 	@Test
-	public void givenAPileWith2Cards_whenGetTop3Cards_ThenTheResultIsNull() {
+	public void givenAPileWith2Cards_whenGetTop3Cards_ThenTheResultIsEmptyList() {
 		int quantity = 3;
 		Card card1 = new CardBuilder().number(Number.SEVEN).suit(Suit.PIKES).build();
 		Card card2 = new CardBuilder().number(Number.EIGHT).suit(Suit.HEARTS).build();
 		Pile pile = new PileBuilder().card(card1).card(card2).build();
-		assertNull(pile.getTop(quantity));		
+		assertEquals(new ArrayList<Card>(),pile.getTop(quantity));		
 	}
 	
 	
@@ -111,10 +110,8 @@ public class PileTest {
 	@Test
 	public void givenAnEmptyPile_whenAddToTop0Cards_ThenNoCardsAdded() {
 		Pile pile = new PileBuilder().build();
-		List<Card> cardList = new ArrayList<Card>();
-		cardList.add(new CardBuilder().number(Number.SEVEN).suit(Suit.PIKES).build());
 		pile.addToTop(new ArrayList<Card>());
-		assertEquals(cardList, pile.getCards());		
+		assertTrue(pile.getCards().isEmpty());		
 	}
 	
 	@Test

@@ -5,18 +5,20 @@ import java.util.LinkedList;
 public class PileBuilder {
 
 	LinkedList<Card> cards;
-	
-	PileBuilder () {
+
+	PileBuilder() {
 		cards = new LinkedList<Card>();
 	}
-	
+
 	Pile build() {
-		cards.peekLast().flip();
+		if (cards.size() > 0) {
+			cards.peekLast().flip();
+		}
+
 		Pile pile = new Pile(cards.size(), cards);
 		return pile;
 	}
-	
-	
+
 	PileBuilder card(Card card) {
 		card.flip();
 		cards.add(card);

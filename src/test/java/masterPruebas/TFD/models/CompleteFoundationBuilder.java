@@ -25,5 +25,10 @@ FoundationBuilder foundationBuilder;
 	public Foundation build() {
 		return foundationBuilder.build();
 	}
+	
+	public CompleteFoundationBuilder suit(Suit suit) {
+		this.foundationBuilder.suit(suit);
+		return this;
+	}
 
 }

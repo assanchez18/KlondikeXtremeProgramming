@@ -2,17 +2,31 @@ package masterPruebas.TFD.models;
 
 public class StockBuilder {
 	
-	public StockBuilder(){
-	}
+	private Stock stock;
 	
-	public Stock build() {
-		Stock stock =  new Stock();
+	public StockBuilder(){
+		this.stock = new Stock();
 		stock.push(new Card(Suit.DIAMONDS, Number.AS));
 		stock.push(new Card(Suit.PIKES, Number.AS));
 		stock.push(new Card(Suit.HEARTS, Number.AS));
 		stock.push(new Card(Suit.CLOVERS, Number.AS));
 		stock.push(new Card(Suit.DIAMONDS, Number.TWO));
 		stock.push(new Card(Suit.PIKES, Number.TWO));
-		return stock;
+	}
+	
+	public Stock build() {
+		return this.stock;
+	}
+	
+	public StockBuilder card(Card card) {
+		stock.push(card);
+		return this;
+	}
+	
+	public StockBuilder empty() {
+		while(!stock.empty()) {
+			stock.pop();
+		}
+		return this;
 	}
 }
