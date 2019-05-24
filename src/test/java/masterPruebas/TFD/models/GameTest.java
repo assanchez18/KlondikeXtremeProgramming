@@ -43,23 +43,29 @@ public class GameTest {
 				                                             .card(new CardBuilder().number(Number.TWO).suit(Suit.PIKES).build())
 				                                             .card(new CardBuilder().number(Number.THREE).suit(Suit.PIKES).build())
 				                                             .build()).build();
-		assertEquals(Error.NO_ERROR, game.moveFromStockToWaste());
+		assertNull(game.moveFromStockToWaste());
 	}
 	
 	@Test
 	public void givenGameWithEmptyStock_whenMovingFromStockToWaste_thenMoveError() {
-		Game game = new GameBuilder().stock(new EmptyStockBuilder().build()).build();
+		Game game = new GameBuilder().stock(new StockBuilder().build()).build();
 		assertEquals(Error.EMPTY_STOCK, game.moveFromStockToWaste());
 	}
 
 	@Test
 	public void givenGame_whenMovingFromWasteToFoundation_thenMoveSuccesfull() {
-		fail("Not implemented");
+		Waste waste = new WasteBuilder().card(new CardBuilder().number(Number.AS).suit(Suit.PIKES).build()).build();
+		Foundation foundation = new FoundationBuilder().suit(Suit.PIKES).build();
+		Game game = new GameBuilder().waste(waste).foundation(foundation).build();
+		assertNull(game.moveFromWasteToFoundation());				
 	}
 	
 	@Test
 	public void givenGame_whenMovingFromWasteToFoundation_thenMoveError() {
-		fail("Not implemented");
+		Waste waste = new WasteBuilder().card(new CardBuilder().number(Number.TWO).suit(Suit.PIKES).build()).build();
+		Foundation foundation = new FoundationBuilder().suit(Suit.PIKES).build();
+		Game game = new GameBuilder().waste(waste).foundation(foundation).build();
+		assertEquals(Error.NO_FIT_FOUNDATION,game.moveFromWasteToFoundation());				
 	}
 	
 	@Test

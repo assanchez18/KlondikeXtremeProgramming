@@ -1,32 +1,24 @@
 package masterPruebas.TFD.models;
 
+import java.util.LinkedList;;
+
 public class StockBuilder {
 	
-	private Stock stock;
+	private LinkedList<Card> cards;
 	
 	public StockBuilder(){
-		this.stock = new Stock();
-		stock.push(new Card(Suit.DIAMONDS, Number.AS));
-		stock.push(new Card(Suit.PIKES, Number.AS));
-		stock.push(new Card(Suit.HEARTS, Number.AS));
-		stock.push(new Card(Suit.CLOVERS, Number.AS));
-		stock.push(new Card(Suit.DIAMONDS, Number.TWO));
-		stock.push(new Card(Suit.PIKES, Number.TWO));
+		this.cards = new LinkedList<Card>();
 	}
 	
 	public Stock build() {
-		return this.stock;
+		Stock stock = new Stock();
+		while(!cards.isEmpty())
+			stock.push(cards.pollFirst());
+		return stock;
 	}
 	
 	public StockBuilder card(Card card) {
-		stock.push(card);
-		return this;
-	}
-	
-	public StockBuilder empty() {
-		while(!stock.empty()) {
-			stock.pop();
-		}
+		this.cards.push(card);
 		return this;
 	}
 }

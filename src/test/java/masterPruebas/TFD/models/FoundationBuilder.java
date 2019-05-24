@@ -8,7 +8,7 @@ public class FoundationBuilder {
 	
 	public FoundationBuilder(){
 		suit = Suit.PIKES;
-		stack = new ArrayDeque<Card>();
+		stack = new LinkedList<Card>();
 	}
 	
 	public Foundation build() {

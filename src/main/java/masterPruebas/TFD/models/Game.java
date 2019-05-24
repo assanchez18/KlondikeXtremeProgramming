@@ -14,11 +14,6 @@ public class Game {
 	private List<Pile> piles;
 	
 	public Game() {
-		clear();
-	}
-	
-	public void clear() {
-		//BUILDER PARA Stock en el futuro
 		this.foundations = new HashMap<Suit,Foundation>();
 		for (Suit s : Suit.values()) {
 			this.foundations.put(s, new Foundation(s));
@@ -43,6 +38,13 @@ public class Game {
 		}
 	}
 	
+	public void clear() {
+		this.foundations = new HashMap<Suit, Foundation>();
+		this.stock = new Stock();
+		this.waste = new Waste();
+		this.piles = new ArrayList<Pile>();
+	}
+	
 	public boolean isFinished() {
 		for (Foundation f : this.foundations.values()) {
 			if (f.empty() || !f.isComplete()) {
@@ -58,12 +60,23 @@ public class Game {
 		}
 		else {
 			waste.push(stock.pop());
-			return Error.NO_ERROR;
+			return null;
 		}
+	}
+	public Error moveFromWasteToFoundation() {
+		if( this.waste.peek().getNumber() == Number.AS || (!this.foundations.get(this.waste.peek().getSuit()).empty()  && this.waste.peek().isNext(this.foundations.get(this.waste.peek().getSuit()).peek()))) {
+			this.foundations.get(this.waste.peek().getSuit()).push(this.waste.pop());
+			return null;
+		}
+		return Error.NO_FIT_FOUNDATION;
 	}
 	
 	public Stock getStock() {
 		return this.stock;
+	}
+	
+	public Waste getWaste() {
+		return this.waste;
 	}
 	
 	public Map<Suit,Foundation> getFoundations() {

@@ -31,5 +31,10 @@ public class CardBuilder {
 		return this;
 	}
 	
+	public CardBuilder facedUp() {
+		this.facedUp = true;
+		return this;
+	}
+	
 
 }

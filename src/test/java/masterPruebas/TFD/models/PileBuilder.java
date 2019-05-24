@@ -14,13 +14,11 @@ public class PileBuilder {
 		if (cards.size() > 0) {
 			cards.peekLast().flip();
 		}
-
 		Pile pile = new Pile(cards.size(), cards);
 		return pile;
 	}
 
 	PileBuilder card(Card card) {
-		card.flip();
 		cards.add(card);
 		return this;
 	}

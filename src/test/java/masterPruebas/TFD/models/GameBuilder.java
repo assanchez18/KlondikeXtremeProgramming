@@ -2,27 +2,30 @@ package masterPruebas.TFD.models;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
 public class GameBuilder {
 
 	private Map<Suit, Foundation> foundations;
-	private Stock stock;
+	private Stack<Card> stock;
+	private LinkedList<Card> waste;
 	
-	GameBuilder() {
+	public GameBuilder() {
+		
 		this.foundations = new HashMap<Suit,Foundation>();
 		for (Suit s : Suit.values()) {
 			this.foundations.put(s, new FoundationBuilder().suit(s).build());
 		}
-		this.stock = new StockBuilder().build();
+		this.stock = new Stack<Card>();
+		this.waste = new LinkedList<Card>();
 	}
 	
 	public Game build() {
 		Game game = new Game();
 		updateFoundation(game);
 		updateStock(game);
+		updateWaste(game);
 		return game;
 	}
 	
@@ -32,7 +35,9 @@ public class GameBuilder {
 	}
 	
 	public GameBuilder stock(Stock stock) {
-		this.stock = stock;
+		while(!stock.empty()) {
+			this.stock.push(stock.pop());	
+		}
 		return this;
 	}
 	
@@ -40,12 +45,8 @@ public class GameBuilder {
 		while(!game.getStock().empty()) {
 			game.getStock().pop();
 		}
-		Stack<Card> auxiliarList = new Stack<Card>();
 		while (!this.stock.empty()) {
-			auxiliarList.push(this.stock.pop());
-		}
-		while (!auxiliarList.isEmpty()) {
-			game.getStock().push(auxiliarList.pop());
+			game.getStock().push(this.stock.pop());
 		}
 	}
 	
@@ -53,5 +54,18 @@ public class GameBuilder {
 		for(Suit s : Suit.values()) {
 			game.getFoundations().put(s, this.foundations.get(s));
 		}
+	}
+	
+	private void updateWaste(Game game) {
+		while(!this.waste.isEmpty() ) {
+			game.getWaste().push(this.waste.pop());
+		}
+	}
+	
+	public GameBuilder waste(Waste waste) {
+		while(!waste.empty()) {
+			this.waste.push(waste.pop());	
+		}
+		return this;
 	}
 }

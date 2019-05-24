@@ -8,7 +8,6 @@ public class Stock extends CardStack {
 
 	Stock() {
 		super();
-		
 		for(Suit s : Suit.values()) {
 			for(Number n : Number.values()) {
 				cards.push(new Card(s, n));
